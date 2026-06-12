@@ -1,0 +1,130 @@
+[
+  {
+    "name": "Coffea arabica var. typica",
+    "description": "A classic Jamaican Blue Mountain-style coffee with a mild, well-balanced flavour, gentle acidity, and a clean, sweet finish carrying subtle notes of chocolate and nuts.",
+    "price_per_kg": "129.00",
+    "origin": "Jamaica",
+    "roast_level": "medium",
+    "is_available": true
+  },
+  {
+    "name": "Coffea arabica var. bourbon",
+    "description": "Grown in the high-altitude hills of Rwanda, this Bourbon variety offers a juicy body with bright red-fruit acidity and delicate floral and caramel undertones.",
+    "price_per_kg": "32.50",
+    "origin": "Rwanda",
+    "roast_level": "light",
+    "is_available": true
+  },
+  {
+    "name": "Coffea canephora (robusta)",
+    "description": "A bold, full-bodied Vietnamese Robusta with low acidity, intense bitterness, and earthy dark-chocolate notes. High in caffeine and ideal for strong espresso blends.",
+    "price_per_kg": "14.90",
+    "origin": "Vietnam",
+    "roast_level": "dark",
+    "is_available": true
+  },
+  {
+    "name": "Coffea arabica 'Geisha'",
+    "description": "A rare and prized Geisha celebrated for its complex, tea-like cup, vivid jasmine aroma, and layered notes of bergamot, peach, and tropical fruit.",
+    "price_per_kg": "185.00",
+    "origin": "Panama",
+    "roast_level": "light",
+    "is_available": false
+  },
+  {
+    "name": "Coffea arabica var. caturra",
+    "description": "A smooth Colombian Caturra with medium body, rounded sweetness, and balanced notes of caramel, red apple, and a hint of citrus.",
+    "price_per_kg": "28.00",
+    "origin": "Colombia",
+    "roast_level": "medium",
+    "is_available": true
+  },
+  {
+    "name": "Coffea arabica var. catuai",
+    "description": "A dependable Brazilian Catuai offering a creamy body, low acidity, and comforting flavours of milk chocolate, hazelnut, and roasted almond.",
+    "price_per_kg": "24.50",
+    "origin": "Brazil",
+    "roast_level": "medium",
+    "is_available": true
+  },
+  {
+    "name": "Coffea arabica 'SL28'",
+    "description": "A vibrant Kenyan SL28 known for its juicy blackcurrant acidity, syrupy body, and bright, wine-like complexity with a lingering sweet finish.",
+    "price_per_kg": "38.00",
+    "origin": "Kenya",
+    "roast_level": "light",
+    "is_available": true
+  },
+  {
+    "name": "Coffea arabica 'Heirloom'",
+    "description": "Wild heirloom varieties from the birthplace of coffee, delivering a fragrant floral aroma, delicate berry sweetness, and a light, tea-like body.",
+    "price_per_kg": "34.00",
+    "origin": "Ethiopia",
+    "roast_level": "light",
+    "is_available": true
+  },
+  {
+    "name": "Coffea liberica",
+    "description": "An unusual Liberica (Barako) with a heavy body, smoky and woody character, and distinctive notes of jackfruit, dark fruit, and a bittersweet finish.",
+    "price_per_kg": "42.00",
+    "origin": "Philippines",
+    "roast_level": "dark",
+    "is_available": false
+  },
+  {
+    "name": "Coffea arabica 'Pacamara'",
+    "description": "A large-bean Salvadoran Pacamara prized for its creamy texture, bright stone-fruit acidity, and complex notes of chocolate, citrus, and brown sugar.",
+    "price_per_kg": "45.00",
+    "origin": "El Salvador",
+    "roast_level": "medium",
+    "is_available": true
+  },
+  {
+    "name": "Coffea arabica var. mundo novo",
+    "description": "A robust Brazilian Mundo Novo with a heavy body, gentle acidity, and rich, full flavours of dark chocolate, toasted nuts, and molasses.",
+    "price_per_kg": "22.00",
+    "origin": "Brazil",
+    "roast_level": "dark",
+    "is_available": false
+  },
+  {
+    "name": "Coffea arabica 'Maragogipe'",
+    "description": "Known as the 'elephant bean', this Mexican Maragogipe is mild and smooth with light acidity, a soft body, and subtle notes of cocoa and toasted grain.",
+    "price_per_kg": "30.00",
+    "origin": "Mexico",
+    "roast_level": "medium",
+    "is_available": true
+  },
+  {
+    "name": "Coffea arabica var. castillo",
+    "description": "A disease-resistant Colombian Castillo supplied as unroasted green beans for home roasters. Expect a balanced cup with medium body, mild acidity, and sweet caramel and red-fruit notes once roasted.",
+    "price_per_kg": "19.50",
+    "origin": "Colombia",
+    "roast_level": "raw",
+    "is_available": true
+  },
+  {
+    "name": "Coffea canephora var. robusta",
+    "description": "Unroasted green Ugandan Robusta beans for home roasting, full-bodied with earthy, nutty character and a powerful caffeine kick once roasted.",
+    "price_per_kg": "11.00",
+    "origin": "Uganda",
+    "roast_level": "raw",
+    "is_available": true
+  },
+  {
+    "name": "Coffea excelsa",
+    "description": "A rare Indonesian Excelsa with a tart, fruity profile, light body, and intriguing notes of dark berries, spice, and a faintly smoky finish.",
+    "price_per_kg": "39.00",
+    "origin": "Indonesia",
+    "roast_level": "dark",
+    "is_available": false
+  },
+  {
+    "name": "Coffea arabica 'Tabi'",
+    "description": "A bright Costa Rican Tabi with crisp citrus acidity, a clean medium body, and sweet notes of honey, orange, and red apple.",
+    "price_per_kg": "33.50",
+    "origin": "Costa Rica",
+    "roast_level": "light",
+    "is_available": true
+  }
+]
