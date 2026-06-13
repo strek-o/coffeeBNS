@@ -1,12 +1,14 @@
-import './App.css'
+import "./App.css";
+
+import ProductsPage from "./pages/ProductsPage";
 
 function App() {
   return (
     <main>
       <h1>coffeeBNS</h1>
-      <p>Coffee beans shop.</p>
+      <ProductsPage />
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
