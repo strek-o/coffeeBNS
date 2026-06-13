@@ -19,6 +19,7 @@ class Product(models.Model):
         default=Roast.RAW,
     )
     is_available = models.BooleanField(default=True)
+    image = models.CharField(max_length=120, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

@@ -5,7 +5,8 @@
     "price_per_kg": "129.00",
     "origin": "Jamaica",
     "roast_level": "medium",
-    "is_available": true
+    "is_available": true,
+    "image": "coffea-arabica-var-typica.png"
   },
   {
     "name": "Coffea arabica var. bourbon",
@@ -13,7 +14,8 @@
     "price_per_kg": "32.50",
     "origin": "Rwanda",
     "roast_level": "light",
-    "is_available": true
+    "is_available": true,
+    "image": "coffea-arabica-var-bourbon.png"
   },
   {
     "name": "Coffea canephora (robusta)",
@@ -21,7 +23,8 @@
     "price_per_kg": "14.90",
     "origin": "Vietnam",
     "roast_level": "dark",
-    "is_available": true
+    "is_available": true,
+    "image": "coffea-canephora-robusta.png"
   },
   {
     "name": "Coffea arabica 'Geisha'",
@@ -29,7 +32,8 @@
     "price_per_kg": "185.00",
     "origin": "Panama",
     "roast_level": "light",
-    "is_available": false
+    "is_available": false,
+    "image": "coffea-arabica-geisha.png"
   },
   {
     "name": "Coffea arabica var. caturra",
@@ -37,7 +41,8 @@
     "price_per_kg": "28.00",
     "origin": "Colombia",
     "roast_level": "medium",
-    "is_available": true
+    "is_available": true,
+    "image": "coffea-arabica-var-caturra.png"
   },
   {
     "name": "Coffea arabica var. catuai",
@@ -45,7 +50,8 @@
     "price_per_kg": "24.50",
     "origin": "Brazil",
     "roast_level": "medium",
-    "is_available": true
+    "is_available": true,
+    "image": "coffea-arabica-var-catuai.png"
   },
   {
     "name": "Coffea arabica 'SL28'",
@@ -53,7 +59,8 @@
     "price_per_kg": "38.00",
     "origin": "Kenya",
     "roast_level": "light",
-    "is_available": true
+    "is_available": true,
+    "image": "coffea-arabica-sl28.png"
   },
   {
     "name": "Coffea arabica 'Heirloom'",
@@ -61,7 +68,8 @@
     "price_per_kg": "34.00",
     "origin": "Ethiopia",
     "roast_level": "light",
-    "is_available": true
+    "is_available": true,
+    "image": "coffea-arabica-heirloom.png"
   },
   {
     "name": "Coffea liberica",
@@ -69,7 +77,8 @@
     "price_per_kg": "42.00",
     "origin": "Philippines",
     "roast_level": "dark",
-    "is_available": false
+    "is_available": false,
+    "image": "coffea-liberica.png"
   },
   {
     "name": "Coffea arabica 'Pacamara'",
@@ -77,7 +86,8 @@
     "price_per_kg": "45.00",
     "origin": "El Salvador",
     "roast_level": "medium",
-    "is_available": true
+    "is_available": true,
+    "image": "coffea-arabica-pacamara.png"
   },
   {
     "name": "Coffea arabica var. mundo novo",
@@ -85,7 +95,8 @@
     "price_per_kg": "22.00",
     "origin": "Brazil",
     "roast_level": "dark",
-    "is_available": false
+    "is_available": false,
+    "image": "coffea-arabica-var-mundo-novo.png"
   },
   {
     "name": "Coffea arabica 'Maragogipe'",
@@ -93,7 +104,8 @@
     "price_per_kg": "30.00",
     "origin": "Mexico",
     "roast_level": "medium",
-    "is_available": true
+    "is_available": true,
+    "image": "coffea-arabica-maragogipe.png"
   },
   {
     "name": "Coffea arabica var. castillo",
@@ -101,7 +113,8 @@
     "price_per_kg": "19.50",
     "origin": "Colombia",
     "roast_level": "raw",
-    "is_available": true
+    "is_available": true,
+    "image": "coffea-arabica-var-castillo.png"
   },
   {
     "name": "Coffea canephora var. robusta",
@@ -109,7 +122,8 @@
     "price_per_kg": "11.00",
     "origin": "Uganda",
     "roast_level": "raw",
-    "is_available": true
+    "is_available": true,
+    "image": "coffea-canephora-var-robusta.png"
   },
   {
     "name": "Coffea excelsa",
@@ -117,7 +131,8 @@
     "price_per_kg": "39.00",
     "origin": "Indonesia",
     "roast_level": "dark",
-    "is_available": false
+    "is_available": false,
+    "image": "coffea-excelsa.png"
   },
   {
     "name": "Coffea arabica 'Tabi'",
@@ -125,6 +140,7 @@
     "price_per_kg": "33.50",
     "origin": "Costa Rica",
     "roast_level": "light",
-    "is_available": true
+    "is_available": true,
+    "image": "coffea-arabica-tabi.png"
   }
 ]

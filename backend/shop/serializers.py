@@ -15,6 +15,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "origin",
             "roast_level",
             "is_available",
+            "image",
             "created_at",
         ]
 
