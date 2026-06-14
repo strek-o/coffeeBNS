@@ -20,7 +20,9 @@ class OrderViewSet(
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Order.objects.filter(user=self.request.user).prefetch_related("items")
+        return Order.objects.filter(user=self.request.user).prefetch_related(
+            "items__product"
+        )
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

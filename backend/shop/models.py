@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.db import models
 from django.conf import settings
 
@@ -37,6 +39,7 @@ class Order(models.Model):
         COMPLETED = "completed"
         CANCELLED = "cancelled"
 
+    uuid = models.UUIDField(default=uuid4, editable=False, unique=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

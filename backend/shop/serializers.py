@@ -21,9 +21,11 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
+    product_name = serializers.CharField(source="product.name", read_only=True)
+
     class Meta:
         model = OrderItem
-        fields = ["id", "product", "quantity_kg", "unit_price_per_kg"]
+        fields = ["id", "product", "product_name", "quantity_kg", "unit_price_per_kg"]
         read_only_fields = ["unit_price_per_kg"]
 
 
@@ -32,7 +34,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ["id", "user", "status", "created_at", "items"]
+        fields = ["id", "uuid", "user", "status", "created_at", "items"]
         read_only_fields = ["user", "status", "created_at"]
 
     def validate_items(self, items):
