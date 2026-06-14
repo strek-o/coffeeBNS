@@ -5,12 +5,24 @@ import { useAuth } from "./auth/AuthContext";
 import { useCart } from "./cart/CartContext";
 import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
+import OrdersPage from "./pages/OrdersPage";
 import ProductsPage from "./pages/ProductsPage";
 
 function App() {
   const { isAuthenticated, username, logout } = useAuth();
   const { count } = useCart();
   const [view, setView] = useState("products");
+
+  let content;
+  if (view === "login" && !isAuthenticated) {
+    content = <LoginPage onSuccess={() => setView("products")} />;
+  } else if (view === "cart") {
+    content = <CartPage onRequireLogin={() => setView("login")} />;
+  } else if (view === "orders" && isAuthenticated) {
+    content = <OrdersPage />;
+  } else {
+    content = <ProductsPage />;
+  }
 
   return (
     <>
@@ -24,7 +36,10 @@ function App() {
           </button>
           {isAuthenticated ? (
             <span className="auth-status">
-              {username} ·{" "}
+              <button className="link-button" onClick={() => setView("orders")}>
+                My orders
+              </button>{" "}
+              · {username} ·{" "}
               <button className="link-button" onClick={logout}>
                 Log out
               </button>
@@ -37,17 +52,7 @@ function App() {
         </nav>
       </header>
 
-      <main>
-        {view === "login" && !isAuthenticated && (
-          <LoginPage onSuccess={() => setView("products")} />
-        )}
-        {view === "cart" && (
-          <CartPage onRequireLogin={() => setView("login")} />
-        )}
-        {(view === "products" || (view === "login" && isAuthenticated)) && (
-          <ProductsPage />
-        )}
-      </main>
+      <main>{content}</main>
     </>
   );
 }

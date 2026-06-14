@@ -1,4 +1,8 @@
-import { apiPost } from "./client";
+import { apiGet, apiPost } from "./client";
+
+export function getOrders(token) {
+  return apiGet("/orders/", token);
+}
 
 export function createOrder(items, token) {
   const payload = {
