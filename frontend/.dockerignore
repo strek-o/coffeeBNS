@@ -1,0 +1,10 @@
+*.pdf
+.venv/
+__pycache__/
+.env
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+*.old
+node_modules/
