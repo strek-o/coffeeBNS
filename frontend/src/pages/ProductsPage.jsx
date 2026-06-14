@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import ProductCard from "../components/ProductCard";
 import { getProducts } from "../api/products";
 
 function ProductsPage() {
@@ -28,29 +29,7 @@ function ProductsPage() {
       <h2>Our beans:</h2>
       <ul className="product-list">
         {products.map((product) => (
-          <li key={product.id} className="product-card">
-            <img
-              className="product-image"
-              src="/placeholder.jpg"
-              alt={product.name}
-            />
-            <div className="product-info">
-              <h3>{product.name}</h3>
-              <p className="product-meta">
-                {product.origin} · {product.roast_level}
-              </p>
-              <p className="product-description">{product.description}</p>
-              <p className="product-price">{product.price_per_kg} PLN / kg</p>
-              <p
-                className={
-                  product.is_available ? "stock in-stock" : "stock out-of-stock"
-                }
-              >
-                <span className="stock-dot" />
-                {product.is_available ? "In stock" : "Out of stock"}
-              </p>
-            </div>
-          </li>
+          <ProductCard key={product.id} product={product} />
         ))}
       </ul>
     </section>
