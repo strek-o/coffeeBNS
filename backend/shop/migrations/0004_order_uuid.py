@@ -4,7 +4,7 @@ import uuid
 from django.db import migrations, models
 
 
-def set_uuids(apps):
+def set_uuids(apps, _schema_editor):
     Order = apps.get_model("shop", "Order")
     for order in Order.objects.all():
         order.uuid = uuid.uuid4()
