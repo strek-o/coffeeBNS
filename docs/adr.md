@@ -1,63 +1,73 @@
 # Architecture Decision Record (ADR)
 
-Kluczowe decyzje architektoniczne projektu.
+---
+
+## ADR-1: Backend (Django + Django REST Framework)
+
+| Pole             | Treść                                                                                                                                                                                                                                                   |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Decyzja**      | Backend napisałem w Django z dodatkiem Django REST Framework (DRF). Oznacza to, że backend nie generuje gotowych stron HTML - zamiast tego wystawia **API**, czyli adresy, pod które frontend wysyła żądania i dostaje z powrotem dane w formacie JSON. |
+| **Kontekst**     | Sklep musi gdzieś trwale trzymać produkty, zamówienia i konta, mieć logowanie oraz panel, w którym mogę zarządzać produktami. Zależało mi, żeby nie pisać wszystkiego od zera.                                                                          |
+| **Alternatywy**  | Rozważałem FastAPI i Flask (lżejsze frameworki Pythona, ale prawie wszystko - logowanie, dostęp do bazy, panel admina - trzeba w nich dokładać samemu) oraz „czyste" Django z szablonami HTML (bez osobnego API).                                       |
+| **Uzasadnienie** | Django ma mnóstwo rzeczy w zestawie: gotowy system kont i logowania, panel administracyjny, oraz warstwę do rozmowy z bazą (ORM - zapytania w Pythonie zamiast w SQL) wraz z migracjami. DRF dokłada do tego wygodne budowanie API.                     |
+| **Trade-offy**   | Django jest cięższe i bardziej narzuca strukturę niż FastAPI/Flask. ORM ukrywa SQL, więc łatwo nieświadomie wygenerować dużo zapytań do bazy.                                                                                                           |
 
 ---
 
-## ADR-1
+## ADR-2: PostgreSQL
 
-| Pole             | Treść |
-| ---------------- | ----- |
-| **Decyzja**      | _xxx_ |
-| **Kontekst**     | _xxx_ |
-| **Alternatywy**  | _xxx_ |
-| **Uzasadnienie** | _xxx_ |
-| **Trade-offy**   | _xxx_ |
-
----
-
-## ADR-2
-
-| Pole             | Treść |
-| ---------------- | ----- |
-| **Decyzja**      | _xxx_ |
-| **Kontekst**     | _xxx_ |
-| **Alternatywy**  | _xxx_ |
-| **Uzasadnienie** | _xxx_ |
-| **Trade-offy**   | _xxx_ |
+| Pole             | Treść                                                                                                                                                                                                                                                                                      |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Decyzja**      | Jako bazę danych wybrałem PostgreSQL i uruchamiam ją lokalnie w kontenerze Dockera. Dane do połączenia (nazwa bazy, użytkownik, hasło) trzymam w pliku .env, a nie na sztywno w kodzie.                                                                                                    |
+| **Kontekst**     | Moje dane są relacyjne, poukładane w tabele połączone ze sobą: użytkownik ma wiele zamówień, zamówienie ma wiele pozycji, a każda pozycja wskazuje na jeden produkt.                                                                                                                       |
+| **Alternatywy**  | SQLite (baza w jednym pliku, zero konfiguracji), MongoDB (baza dokumentowa, trzyma dane jako zagnieżdżone dokumenty, bez sztywnych relacji), oraz baza zarządzana w chmurze - **Azure Database for PostgreSQL**, którą postawiłem używając Terraform i przetestowałem.                     |
+| **Uzasadnienie** | Skoro dane są relacyjne, baza relacyjna pasuje najlepiej - pilnuje spójności (np. nie pozwala usunąć produktu, który jest w czyimś zamówieniu). PostgreSQL jest bliższy temu, co działa w środowisku produkcyjnym, niż plikowy SQLite, i lepiej radzi sobie z wieloma użytkownikami naraz. |
+| **Trade-offy**   | Rezygnuję z bazy zarządzanej w Azure (która dawałaby backupy i automatyczne skalowanie), bo wprowadzałaby zależność od chmury i kosztów.                                                                                                                                                   |
 
 ---
 
-## ADR-3
+## ADR-3: Frontend (React - SPA)
 
-| Pole             | Treść |
-| ---------------- | ----- |
-| **Decyzja**      | _xxx_ |
-| **Kontekst**     | _xxx_ |
-| **Alternatywy**  | _xxx_ |
-| **Uzasadnienie** | _xxx_ |
-| **Trade-offy**   | _xxx_ |
-
----
-
-## ADR-4
-
-| Pole             | Treść |
-| ---------------- | ----- |
-| **Decyzja**      | _xxx_ |
-| **Kontekst**     | _xxx_ |
-| **Alternatywy**  | _xxx_ |
-| **Uzasadnienie** | _xxx_ |
-| **Trade-offy**   | _xxx_ |
+| Pole             | Treść                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Decyzja**      | Frontend zrobiłem w React (SPA - Single Page Application). To strona ładuje się raz, a potem sama podmienia treść w przeglądarce (zamiast przeładowywać całą stronę z serwera) i dociąga dane z API. Stan aplikacji (czy user jest zalogowany, co ma w koszyku) trzymam w React Context, a poruszanie się między widokami robię na zmiennej stanu, bez osobnej biblioteki do nawigacji.                                                |
+| **Kontekst**     | Aplikacja ma sporo „dziejącego się" po stronie przeglądarki: koszyk, do którego dodaję pozycje i zmieniam ilości, licznik w nagłówku, logowanie. Frontend i backend rozwijałem jako dwie osobne warstwy.                                                                                                                                                                                                                               |
+| **Alternatywy**  | Szablony HTML w Django (strona budowana po stronie serwera - natywne dla Django, jeden język), HTMX (dodaje interaktywność bez pełnego SPA, lżejszy) oraz Next.js (też React, ale z renderowaniem po stronie serwera - dokłada sporo złożoności).                                                                                                                                                                                      |
+| **Uzasadnienie** | Koszyk i interakcje najwygodniej obsłużyć po stronie przeglądarki, a do tego React jest stworzony. Osobny frontend i backend dają czysty podział: backend tylko dostarcza dane, więc to samo API mogłaby później wykorzystać np. aplikacja mobilna.                                                                                                                                                                                    |
+| **Trade-offy**   | Sporo złożoności: dochodzi drugi język i ekosystem (JavaScript obok Pythona), osobny „build" frontendu i serwis w Dockerze. Muszę też ręcznie pilnować zgodności między frontem a backendem i skonfigurować CORS (mechanizm przeglądarki, który domyślnie blokuje żądania między różnymi adresami - tu z portu 5173 na 8000). |
 
 ---
 
-## ADR-5
+## ADR-4: API
 
-| Pole             | Treść |
-| ---------------- | ----- |
-| **Decyzja**      | _xxx_ |
-| **Kontekst**     | _xxx_ |
-| **Alternatywy**  | _xxx_ |
-| **Uzasadnienie** | _xxx_ |
-| **Trade-offy**   | _xxx_ |
+| Pole             | Treść                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Decyzja**      | API zbudowałem w stylu REST - czyli klient rozmawia z serwerem zwykłymi żądaniami HTTP: `GET /api/products/` po listę produktów, `POST /api/orders/` żeby złożyć zamówienie, a serwer odpowiada JSON-em.                                                                                                                                                                                                                             |
+| **Kontekst**     | API obsługuje kilka prostych rzeczy: produkty (tylko do odczytu) oraz zamówienia (tworzenie i podgląd własnych). Niewiele widoków, proste potrzeby.                                                                                                                                                                                                                                                                                  |
+| **Alternatywy**  | GraphQL (klient sam określa, które pola chce pobrać - elastyczne, ale dokłada osobną warstwę i własne komplikacje) oraz tRPC (daje wspólne typy między frontem a backendem, ale działa tylko, gdy obie strony są w TypeScript - a mój backend jest w Pythonie).                                                                                                                                                                      |
+| **Uzasadnienie** | Przy tak prostych zasobach REST w zupełności wystarcza i jest najłatwiejszy. DRF generuje typowe operacje (lista, szczegóły, dodawanie) prawie bez kodu, sam waliduje dane (np. cenę za kg liczy serwer i zapisuje ją w zamówieniu w chwili zakupu, żeby późniejsza zmiana cennika nie ruszyła starych zamówień) i daje wygodny podgląd API w przeglądarce. GraphQL byłby przerostem formy, a tRPC odpadał przez backend w Pythonie. |
+| **Trade-offy**   | Czasem klient dostaje więcej danych, niż potrzebuje (lista produktów zwraca wszystkie pola, nawet gdy widok pokazuje kilka), albo musi wysłać kilka żądań. Nie mam też wspólnych typów front–back jak w tRPC - pilnuję ich ręcznie. Przy tej skali to nieistotne.                                                                                                                                                                    |
+
+---
+
+## ADR-5: Logowanie (token JWT)
+
+| Pole             | Treść                                                                                                                                                                                                                                                                                                                                                                   |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Decyzja**      | Logowanie oparłem o tokeny JWT (JSON Web Token) - podpisany ciąg znaków, który user dostaje po zalogowaniu i dołącza do kolejnych żądań, zamiast logować się za każdym razem. Pod /api/token/ się loguję, pod /api/token/refresh/ odświeżam token. Frontend trzyma token w przeglądarce (localStorage).                                                                 |
+| **Kontekst**     | Frontend (:5173) i backend (:8000) to osobne adresy. Zamówienia muszą być chronione - tylko zalogowany użytkownik może je składać i widzieć, i tylko swoje.                                                                                                                                                                                                             |
+| **Alternatywy**  | Logowanie na sesjach Django z ciasteczkami (natywne dla Django i łatwe do unieważnienia, ale przy osobnym froncie trzeba dodatkowo ogarnąć ciasteczka cross-origin i zabezpieczenie CSRF) oraz logowanie przez zewnętrznego dostawcę (OAuth, np. Google) - przerost dla tego projektu.                                                                                  |
+| **Uzasadnienie** | Token JWT dobrze pasuje do osobnego frontendu: ten po prostu dokleja go do nagłówka żądania i tyle, bez kombinowania z ciasteczkami między adresami. Biblioteka dała gotowe adresy do logowania i odświeżania. Hasła są bezpieczne, bo Django ich nie zapisuje jawnie - trzyma tylko hash. Sam token jest podpisany tajnym kluczem aplikacji, więc nikt go nie podrobi. |
+| **Trade-offy**   | Token JWT trudno unieważnić przed jego wygaśnięciem - wylogowanie to po prostu skasowanie tokenu w przeglądarce.                                                                                                                                                                                                                                                        |
+
+---
+
+## ADR-6: Wszystko w jednym repozytorium - monorepo
+
+| Pole             | Treść                                                                                                                                                                                                                                                                                                                                     |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Decyzja**      | Trzymam całość w jednym repozytorium - monorepo.                                                                                                                                                                                                                                                                                          |
+| **Kontekst**     | Projekt ma kilka warstw (API, frontend, baza, infrastruktura), które trzeba razem uruchamiać i wspólnie wersjonować, a projekt robię sam.                                                                                                                                                                                                 |
+| **Alternatywy**  | Polyrepo - osobne repozytorium dla backendu i osobne dla frontendu. Każde ma własną historię i może być wdrażane niezależnie.                                                                                                                                                                                                             |
+| **Uzasadnienie** | Jedno repo to jedno miejsce do pobrania i uruchomienia, a zmiany dotykające naraz frontu i backendu (np. nowe pole w API i jego użycie w interfejsie) mogę zrobić w jednym commicie. Wspólny docker-compose.yml uruchamia wszystkie serwisy. Przy projekcie jednoosobowym dzielenie tego na osobne repozytoria to tylko dokładanie pracy. |
+| **Trade-offy**   | Nie da się niezależnie wersjonować ani wdrażać poszczególnych warstw, a repo miesza technologie (Python + JavaScript + Terraform). Przy większym zespole osobne repozytoria dawałyby czystszy podział odpowiedzialności i osobne procesy wdrożeniowe.                                                                                     |
